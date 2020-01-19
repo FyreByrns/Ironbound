@@ -11,19 +11,17 @@ namespace Ironbound {
 
     public static class ScreenObjectManager {
         public static string SavePath => @"save\entities\";
+        public static int MaxOnscreen = 1024;
+        public static List<ScreenObject> ScreenObjects => screenObjects;
+        static List<ScreenObject> screenObjects = new List<ScreenObject>();
 
-        public static ScreenObject[] ScreenObjects => screenObjects;
-        static int _screenObjects_LastIndex = -1;
-        static ScreenObject[] screenObjects = new ScreenObject[1024];
         static void TryAddScreenObject(ScreenObject screenObject) {
-            int tryAddIndex = _screenObjects_LastIndex + 1;
-            if (tryAddIndex >= screenObjects.Length) { // Is there room?
+            if (screenObjects.Count >= MaxOnscreen) { // Is there room?
                 DebugManager.LogError($"Attempt to add ScreenObject {screenObject} failed: No room.");
                 return;
             }
 
-            screenObjects[tryAddIndex] = screenObject;
-            _screenObjects_LastIndex = tryAddIndex;
+            screenObjects.Add(screenObject);
             DebugManager.LogInfo($"Successfully added ScreenObject {screenObject}.");
         }
         static void TryRemoveScreenObject(ScreenObject screenObject) {
@@ -31,20 +29,7 @@ namespace Ironbound {
                 DebugManager.LogError($"ScreenObject {screenObject} cannot be removed because it does not exist.");
                 return;
             }
-
-            // Find largest index
-            int removalIndex = Array.IndexOf(screenObjects, screenObject);
-
-            if (removalIndex != _screenObjects_LastIndex) { // Not the last item, needs more processing.
-                for (int i = removalIndex; i < _screenObjects_LastIndex - 1; i++) { // Move all objects after it down an index
-                    screenObjects[i] = screenObjects[i + 1];
-                }
-                _screenObjects_LastIndex--;
-            }
-
-            // It's the last item, very simple to remove.
-            screenObjects[removalIndex] = null; // remove the object
-            _screenObjects_LastIndex = removalIndex - 1; // set the last index to the previous object
+            screenObjects.Remove(screenObject);
         }
 
         public static void Save(ScreenObject screenObject) {
