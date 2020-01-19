@@ -71,16 +71,25 @@ namespace Ironbound {
         public string name;
         public int x, y, width, height;
         public double lastViewedTime;
-        protected int saveLength = 4;
+        protected int SaveLength => 4;
 
-        public virtual string Save() {
-            return $"{name}|{x},{y}|{width},{height}|{lastViewedTime}";
+        public ScreenObject() {
+            lastViewedTime = TimeManager.GlobalTime;
         }
+        public ScreenObject(string name, int x, int y, int width, int height) : this() {
+            this.name = name;
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+        }
+
+        public virtual string Save() => $"{name}|{x},{y}|{width},{height}|{lastViewedTime}";
 
         public virtual void LoadFromString(string save) {
             try {
                 string[] data = save.Split("|".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                if (data.Length != saveLength)
+                if (data.Length != SaveLength)
                     DebugManager.LogError("Failed to load entity: Actual length did not match expected length.");
 
                 // name
