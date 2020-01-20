@@ -12,7 +12,7 @@ namespace Ironbound {
 
     public static class ScreenObjectManager {
         public static string SavePath => @"save\entities\";
-        public static int MaxOnscreen = 1024;
+        public static int MaxOnscreen = 100;
         public static List<ScreenObject> ScreenObjects => screenObjects;
         static List<ScreenObject> screenObjects = new List<ScreenObject>();
 
