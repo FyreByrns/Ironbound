@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DebugManager.cs" />
+    <Compile Include="Display\GraphicsManager.cs" />
     <Compile Include="Display\IDrawable.cs" />
+    <Compile Include="Ironbound.cs" />
     <Compile Include="GUI\UIObject.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Program.cs" />
