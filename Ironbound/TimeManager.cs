@@ -11,14 +11,14 @@ namespace Ironbound {
         public static DateTime GlobalDateTime => DateTime.Now;
         public static DateTime CurrentDateTime => Paused ? PausedDateTime : GlobalDateTime;
         public static DateTime PausedDateTime => pausedDateTime;
-        public static double GlobalTime => globalTime;
+        public static ulong GlobalTime => globalTime;
         public static bool Paused {
             get => paused; set {
                 paused = value;
                 if (paused) pausedDateTime = GlobalDateTime;
             }
         }
-        static double globalTime = 0;
+        static ulong globalTime = 0;
         static bool paused = false;
         static DateTime pausedDateTime;
 
@@ -31,7 +31,7 @@ namespace Ironbound {
 
         private static void Timer_Elapsed(object sender, ElapsedEventArgs e) {
             int elapsed = e.SignalTime.Subtract(lastTime).Milliseconds;
-            if (!paused) globalTime += elapsed;
+            if (!paused) globalTime += (ulong)elapsed;
             lastTime = e.SignalTime;
         }
     }

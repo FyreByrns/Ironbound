@@ -70,7 +70,7 @@ namespace Ironbound {
     public class ScreenObject {
         public string name;
         public int x, y, width, height;
-        public double lastViewedTime;
+        public ulong lastViewedTime;
         protected int SaveLength => 4;
 
         public ScreenObject() {
@@ -84,8 +84,15 @@ namespace Ironbound {
             this.height = height;
         }
 
+        public virtual void Update(float elapsed, ulong time) {
+            ulong changeInTime = time - lastViewedTime;
+
+            lastViewedTime = time;
+        }
+
         public virtual string Save() => $"{name}|{x},{y}|{width},{height}|{lastViewedTime}";
 
+        // Saving to and loading from strings is in no way memory efficient but it's good enough for here and allows easy debugging and tinkering with saves
         public virtual void LoadFromString(string save) {
             try {
                 string[] data = save.Split("|".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
@@ -116,7 +123,7 @@ namespace Ironbound {
                 }
 
                 // last viewed time
-                if (double.TryParse(data[3], out double lvt)) {
+                if (ulong.TryParse(data[3], out ulong lvt)) {
                     lastViewedTime = lvt;
                 }
                 else {
