@@ -23,6 +23,8 @@ namespace Ironbound.GUI {
         public virtual bool Intersects(int x, int y) => Bounds.Intersects(new Point(x, y));
 
         public virtual void Update(float elapsed) { }
+
+        public virtual PixelEngine.Sprite GetSprite() { return GraphicsManager.DefaultSprite; }
         public virtual void Draw(PixelEngine.Game game) { }
     }
 }
