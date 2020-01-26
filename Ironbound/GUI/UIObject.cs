@@ -16,7 +16,9 @@ namespace Ironbound.GUI {
     public class UIObject {
         public string name;
         public int x, y, width, height;
+        Rectangle Bounds => new Rectangle(x, y, width, height);
 
         public virtual void Interact() { }
+        public virtual bool Intersects(int x, int y) => Bounds.Intersects(new Point(x, y));
     }
 }

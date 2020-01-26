@@ -16,5 +16,7 @@
         }
 
         public bool Contains(Point p) => x <= p.x && x + width >= p.x && y <= p.y && y + width >= p.y;
+
+        public static implicit operator Rectangle(Point p) => new Rectangle(p.x, p.y, 0, 0);
     }
 }
