@@ -8,5 +8,6 @@ using PixelEngine;
 namespace Ironbound.Display {
     public interface IDrawable {
         Sprite GetSprite();
+        void Draw(Game game);
     }
 }
