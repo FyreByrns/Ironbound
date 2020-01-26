@@ -51,10 +51,12 @@
     <Compile Include="Display\IDrawable.cs" />
     <Compile Include="Ironbound.cs" />
     <Compile Include="GUI\UIObject.cs" />
+    <Compile Include="IUpdateable.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rectangle.cs" />
+    <Compile Include="Scene.cs" />
     <Compile Include="ScreenObject.cs" />
     <Compile Include="TimeManager.cs" />
   </ItemGroup>
